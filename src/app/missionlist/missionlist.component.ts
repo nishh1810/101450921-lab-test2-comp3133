@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { SpaceXService } from '../services/spacex.service';
+import { SpaceXService } from '../network/spacex.service';
 import { MissionfilterComponent } from '../missionfilter/missionfilter.component';
-import { MissiondetailsComponent } from '../missiondetails/missiondetails.component'; 
 import { CommonModule } from '@angular/common';
 import { SpaceXLaunch } from '../models/spacex-launch.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-missionlist',
   templateUrl: './missionlist.component.html',
   styleUrls: ['./missionlist.component.css'],
   standalone: true,
-  imports: [CommonModule, MissionfilterComponent, MissiondetailsComponent], // Add MissionDetailsComponent here
+  imports: [CommonModule, MissionfilterComponent ,RouterLink], 
 })
 export class MissionlistComponent implements OnInit {
   missions: SpaceXLaunch[] = [];
   filteredMissions: SpaceXLaunch[] = [];
-  selectedMission: SpaceXLaunch | null = null; 
+  selectedMission!: SpaceXLaunch; 
 
   constructor(private spacexService: SpaceXService) {}
 
@@ -33,9 +33,9 @@ export class MissionlistComponent implements OnInit {
       this.filteredMissions = this.missions;
     }
   }
-
-  onMissionSelect(mission: any): void {
-    console.log("Selected Mission:", mission); 
-    this.selectedMission = mission;  
+  openMissionDetailsInNewTab(flightNumber: number): void {
+    // Open the mission details page in a new tab
+    const url = `/mission/${flightNumber}`;  // Assuming the route to the mission details is /mission/:flight_number
+    window.open(url, '_blank');
   }
 }

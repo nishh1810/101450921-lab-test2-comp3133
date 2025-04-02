@@ -1,41 +1,17 @@
-<!-- Mission Filter Component (Allows filtering by launch year) -->
-<app-missionfilter (filterChanged)="onFilterChanged($event)"></app-missionfilter>
-
-<!-- Display List of Missions -->
-<div *ngFor="let mission of filteredMissions" class="mission-card" (click)="onMissionSelect(mission)" style="cursor: pointer;">
-  
-  <h2>{{ mission.flight_number }} - {{ mission.mission_name }}</h2>
-  <p><strong>Launch Year:</strong> {{ mission.launch_year }}</p>
-  <p><strong>Details:</strong> {{ mission.details }}</p>
-
-  <!-- Mission Patch -->
-  <div *ngIf="mission.links.mission_patch_small">
-    <img [src]="mission.links.mission_patch_small" alt="Mission Patch" />
-  </div>
-
-  <!-- Rocket Information -->
-  <div class="rocket-info">
-    <h3>Rocket Information</h3>
-    <p><strong>Rocket Name:</strong> {{ mission.rocket.rocket_name }}</p>
-    <p><strong>Rocket Type:</strong> {{ mission.rocket.rocket_type }}</p>
-  </div>
-
-  <!-- External Links -->
-  <div class="links">
-    <h3>Links</h3>
-    <div *ngIf="mission.links.article_link">
-      <a [href]="mission.links.article_link" target="_blank">Article Link</a>
-    </div>
-    <div *ngIf="mission.links.wikipedia">
-      <a [href]="mission.links.wikipedia" target="_blank">Wikipedia</a>
-    </div>
-    <div *ngIf="mission.links.video_link">
-      <a [href]="mission.links.video_link" target="_blank">Video Link</a>
+<div class="container">
+  <h2>Mission Launch List</h2>
+  <!-- Mission Filter Component -->
+  <app-missionfilter (filterChanged)="onFilterChanged($event)"></app-missionfilter>
+  <!-- Mission Cards Grid -->
+  <div class="mission-grid">
+    <div *ngFor="let mission of filteredMissions" class="mission-card">
+        <div class="mission-header">
+          <img *ngIf="mission.links.mission_patch_small" [src]="mission.links.mission_patch_small" alt="Mission Patch">
+          <h2>{{ mission.flight_number }} - {{ mission.mission_name }}</h2>
+        </div>
+        <p><strong>Launch Year:</strong> {{ mission.launch_year }}</p>
+        <p *ngIf="mission.details"><strong>Details:</strong> {{ mission.details }}</p>
+        <button (click)="openMissionDetailsInNewTab(mission.flight_number)">View Details</button>
     </div>
   </div>
-
 </div>
-
-<!-- Display Mission Details when a Mission is Selected -->
-<app-missiondetails *ngIf="selectedMission" [mission]="selectedMission"></app-missiondetails>
-
