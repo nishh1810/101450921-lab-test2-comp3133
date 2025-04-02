@@ -1,5 +1,11 @@
 # 101450921LabTest2Comp3133
 
+# Main Page
+![alt text](<Screenshot 2025-04-02 150311.png>)
+# Filtered Page
+![alt text](<Screenshot 2025-04-02 150341.png>)
+# Details Page 
+![alt text](<Screenshot 2025-04-02 150325.png>)
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
 
 ## Development server
